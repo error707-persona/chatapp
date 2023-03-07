@@ -1,38 +1,90 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.navbar {
+  width: 100%;
+  height: 4em;
+  background-color: rgb(36, 36, 141);
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+.inputbox {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+}
+.input {
+  width: 95%;
+  height: 4em;
+  border: 1px solid black;
+  outline: none;
+  padding: 5px;
+}
+
+footer {
+  margin-top: 53em;
+}
+
+.send {
+  /* border: 1px solid red; */
+  padding: 20px;
+}
+
+.logout {
+  padding: 17px;
+  margin-left: auto;
+  margin-right: 10px;
+  background-color: aliceblue;
+  border: 0;
+}
+
+.logout:hover {
+  background-color: rgb(238, 0, 255);
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.currentuser {
+  width: 100%;
+  margin-left: 1em;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.main {
+  display: flex;
+  height: 830px;
+  overflow-y: scroll;
+}
+
+.usermsg {
+  background-color: rgb(0, 13, 255);
+  padding: 10px;
+
+  width: fit-content;
+  margin-top: 1em;
+  color: white;
+  border-radius: 1em;
+}
+.block {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  align-items: center;
+}
+
+.block-user {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  align-items: center;
+  justify-content: end;
+  margin-right: 20px;
+}
+
+.profile {
+  border-radius: 50%;
+}
+
+.content {
+  margin-left: 50em;
+  border: 1px solid red;
+  margin-right: 1em;
+}
+.otheruser {
+  margin-top: 2em;
 }

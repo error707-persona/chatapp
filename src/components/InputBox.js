@@ -3,12 +3,13 @@ import React, { useState } from "react";
 import { database } from "../firebase";
 import { collection, addDoc } from "firebase/firestore";
 import { auth } from "../firebase";
+import send from "../assests/send.svg";
 const InputBox = () => {
   const [data, setdata] = useState("");
 
   const collectionsRef = collection(database, "messages");
   const handleSend = () => {
-    if (data!=="") {
+    if (data !== "") {
       addDoc(collectionsRef, {
         username: auth.currentUser.email,
         msg: data,
@@ -17,6 +18,7 @@ const InputBox = () => {
     }
     setdata("");
   };
+  
 
   return (
     <div className="inputbox">
@@ -26,7 +28,9 @@ const InputBox = () => {
         onChange={(e) => setdata(e.target.value)}
         value={data}
       ></input>
-      <input type="submit" value="Send" onClick={handleSend} className="send" />
+      <button onClick={handleSend} className="send">
+        <img src={send}/>
+      </button>
     </div>
   );
 };

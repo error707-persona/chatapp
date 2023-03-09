@@ -24,11 +24,6 @@ footer {
   margin-top: 53em;
 }
 
-.send {
-  /* border: 1px solid red; */
-  padding: 20px;
-}
-
 .logout {
   padding: 17px;
   margin-left: auto;
@@ -45,7 +40,6 @@ footer {
 .currentuser {
   width: 100%;
   margin-left: 1em;
-  
 }
 
 .main {
@@ -72,7 +66,6 @@ footer {
   gap: 10px;
   margin-top: 20px;
   align-items: center;
-  
 }
 
 .block-user {
@@ -90,7 +83,6 @@ footer {
 
 .content {
   margin-left: 50em;
-  /* border: 1px solid red; */
   margin-right: 1em;
 }
 .otheruser {
@@ -115,8 +107,7 @@ footer {
 }
 
 .item {
-  border-bottom: 1px solid black;
-  padding: 20px;
+  border-bottom: 1px solid rgb(165, 165, 165);
   display: flex;
   align-items: center;
 }
@@ -126,6 +117,8 @@ footer {
   flex-direction: column;
   padding: 30px;
   gap: 20px;
+  width: 100%;
+  /* border: 1px solid red; */
 }
 
 .listuser {
@@ -137,10 +130,18 @@ footer {
   color: rgb(92, 92, 92);
 }
 
-.item:hover {
-  background-color: rgb(94, 121, 255);
+.start-chat {
+  border: 0;
+  padding: 20px;
+  background-color: rgb(11, 18, 121);
   color: white;
+  width: 30%;
 }
+
+.start-chat:hover {
+  background-color: rgb(6, 11, 81);
+}
+
 /* login */
 .login {
   background-color: rgb(143, 190, 255);
@@ -150,4 +151,24 @@ footer {
 .google {
   padding: 10px;
   width: 400px;
+}
+
+/* chats */
+
+
+.tab {
+  width: 50%;
+  height: 50px;
+  background-color: aliceblue;
+  border: 1px solid blue;
+  
+}
+
+.tab:hover {
+  background-color: blue;
+  color: white;
+}
+
+.nav-buttons {
+  margin-left: auto;
 }

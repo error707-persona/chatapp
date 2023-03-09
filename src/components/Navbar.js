@@ -9,9 +9,12 @@ const Navbar = () => {
   return (
     <div className="navbar">
       <img src={logo} width={40} style={{ marginLeft: "10px" }} />
-      <button className="logout" value="logout" onClick={handleSignOut}>
-        LOGOUT
-      </button>
+      <div className="nav-buttons">
+        {/* <button className="logout">+</button> */}
+        <button className="logout" value="logout" onClick={handleSignOut}>
+          LOGOUT
+        </button>
+      </div>
     </div>
   );
 };

@@ -6,12 +6,15 @@ import { auth } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 
-const Message = () => {
+const Message = ({ table, settable }) => {
   const [data, setdata] = useState([]);
-  const collectionsRef = collection(database, "messages");
-  const bottomRef = useRef(null);
+  
+  
+  const dummy = useRef();
 
   const getData = () => {
+    const collectionsRef = collection(database, table);
+    console.log(table, "table")
     onSnapshot(collectionsRef, (data) => {
       setdata(
         data.docs
@@ -21,22 +24,24 @@ const Message = () => {
           .sort((a, b) => a.timestamp - b.timestamp)
       );
     });
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   useEffect(() => {
     getData();
+    dummy.current.scrollIntoView({ behavior: "smooth" });
   }, []);
 
   return (
-    <div className="main" ref={bottomRef}>
+    <div className="main">
       <div className="currentuser">
-        {data.map((item) =>
+        {data?.map((item) =>
           item.username === auth.currentUser.email ? (
             <div className="block-user">
               <div>
                 <span className="username">{item.username}</span>
                 <div className="usermsg">{item.msg}</div>
+                <br></br>
+                {/* <div>{Date(item.timestamp).split(" ").slice(4, 5)}</div> */}
               </div>
               <div>
                 <img src={profile} width={50} height={50} className="profile" />
@@ -50,10 +55,13 @@ const Message = () => {
               <div>
                 <span className="username">{item.username}</span>
                 <div className="usermsg">{item.msg}</div>
+                <br></br>
+                {/* <div>{Date(item.timestamp).split(" ").slice(4, 5)}</div> */}
               </div>
             </div>
           )
         )}
+        <div ref={dummy}></div>
       </div>
     </div>
   );

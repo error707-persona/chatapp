@@ -1,24 +1,27 @@
-import React from 'react'
+import React from "react";
 
-import InputBox from '../components/InputBox'
-import Message from '../components/Message'
-import Navbar from '../components/Navbar'
+import InputBox from "../components/InputBox";
+import Message from "../components/Message";
+import Navbar from "../components/Navbar";
+import UserList from "../components/UserList";
 const ChatApp = () => {
   return (
-    <div className='chat-page'>
+    <div className="chat-page">
       <header>
-        <Navbar/>
+        <Navbar />
       </header>
-    
-        <Message/>
-    
-        <footer>
-          <InputBox/>
-          
-        </footer>
+      <div className="main-container">
+        <UserList/>
+        <Message />
+      </div>
+      
+     
+      <InputBox />
+     
         
+      
     </div>
-  )
-}
+  );
+};
 
-export default ChatApp
+export default ChatApp;

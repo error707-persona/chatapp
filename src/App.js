@@ -1,11 +1,15 @@
-
-import './App.css';
-import ChatApp from './pages/ChatApp';
+import "./App.css";
+import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
+import Login from "./pages/Login";
+import ChatApp from "./pages/ChatApp";
 function App() {
   return (
-    <div className="App">
-      <ChatApp/>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/chatapp" element={<ChatApp />}></Route>
+        <Route path="/login" element={<Login />}></Route>
+      </Routes>
+    </Router>
   );
 }
 

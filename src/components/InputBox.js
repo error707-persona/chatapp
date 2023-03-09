@@ -2,17 +2,19 @@ import React, { useState } from "react";
 
 import { database } from "../firebase";
 import { collection, addDoc } from "firebase/firestore";
-
+import { auth } from "../firebase";
 const InputBox = () => {
-  const [data, setdata] = useState([]);
+  const [data, setdata] = useState("");
 
   const collectionsRef = collection(database, "messages");
   const handleSend = () => {
-    addDoc(collectionsRef, {
-      username: "areesha",
-      msg: data,
-      timestamp:Date.now()
-    });
+    if (data!=="") {
+      addDoc(collectionsRef, {
+        username: auth.currentUser.email,
+        msg: data,
+        timestamp: Date.now(),
+      });
+    }
     setdata("");
   };
 

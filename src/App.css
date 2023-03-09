@@ -8,7 +8,9 @@
 .inputbox {
   position: absolute;
   bottom: 0px;
-  width: 100%;
+  width: 70%;
+  margin-left: 34em;
+  display: flex;
 }
 .input {
   width: 95%;
@@ -43,12 +45,17 @@ footer {
 .currentuser {
   width: 100%;
   margin-left: 1em;
+  
 }
 
 .main {
   display: flex;
   height: 830px;
   overflow-y: scroll;
+  width: 70%;
+  margin-left: auto;
+
+  /* border: 1px solid red; */
 }
 
 .usermsg {
@@ -65,6 +72,7 @@ footer {
   gap: 10px;
   margin-top: 20px;
   align-items: center;
+  
 }
 
 .block-user {
@@ -82,9 +90,64 @@ footer {
 
 .content {
   margin-left: 50em;
-  border: 1px solid red;
+  /* border: 1px solid red; */
   margin-right: 1em;
 }
 .otheruser {
   margin-top: 2em;
+}
+
+.login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.userlist {
+  width: 29.5%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.main-container {
+  display: flex;
+  height: 56.5em;
+}
+
+.item {
+  border-bottom: 1px solid black;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.listcontent {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  gap: 20px;
+}
+
+.listuser {
+  font-size: x-large;
+  font-weight: 500;
+}
+
+.listmsg {
+  color: rgb(92, 92, 92);
+}
+
+.item:hover {
+  background-color: rgb(94, 121, 255);
+  color: white;
+}
+/* login */
+.login {
+  background-color: rgb(143, 190, 255);
+  height: 100vh;
+}
+
+.google {
+  padding: 10px;
+  width: 400px;
 }

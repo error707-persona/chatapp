@@ -1,43 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext} from "react";
 import profile from "../assests/profile.webp";
 import { onSnapshot, collection, addDoc } from "firebase/firestore";
 import { database } from "../firebase";
 import { auth } from "../firebase";
+import AppContext from "../context/AppContext";
 const UserList = ({ tab, settab, table, settable }) => {
-  const chatrooms = [
+  const context = useContext(AppContext);
+  const data = context.data;
+  const setdata = context.setdata;
+  const [chatrooms, setchatrooms] = useState([
     {
-      username: "Areesha",
-      msg: "Bubie..",
+      name: "Areesha",
     },
     {
-      username: "Areesha",
-      msg: "Bubie..",
+      name: "Areesha",
     },
     {
-      username: "Areesha",
-      msg: "Bubie..",
+      name: "Areesha",
     },
     {
-      username: "Areesha",
-      msg: "Bubie..",
+      name: "Areesha",
     },
     {
-      username: "Areesha",
-      msg: "Bubie..",
+      name: "Areesha",
     },
     {
-      username: "Areesha",
-      msg: "Bubie..",
+      name: "Areesha",
     },
     {
-      username: "Areesha",
-      msg: "Bubie..",
+      name: "Areesha",
     },
     {
-      username: "Areesha",
-      msg: "Bubie..",
+      name: "Areesha",
     },
-  ];
+  ]);
+
   const contacts = [
     {
       username: "afreensayed@gmail.com",
@@ -58,12 +55,39 @@ const UserList = ({ tab, settab, table, settable }) => {
       database,
       "ChatRoom#" + auth.currentUser.email + "," + username
     );
+    const chatroomRef = collection(database, "chatrooms");
     addDoc(collectionsRef, {
       username: auth.currentUser.email,
       msg: "Hi",
       timestamp: Date.now(),
     });
-    settable("ChatRoom#" + auth.currentUser.email + "," + username)
+    addDoc(chatroomRef, {
+      name: "ChatRoom#" + auth.currentUser.email + "," + username,
+    });
+    const chatRef = collection(database, "chatrooms");
+
+    onSnapshot(chatRef, (data) => {
+      setchatrooms(
+        data.docs.map((item) => {
+          return item.data();
+        })
+      );
+    });
+    console.log(chatrooms, "chat");
+  };
+
+  const handleChatRoom = (name) => {
+    settable(name);
+    const chatRef = collection(database, table);
+
+    onSnapshot(chatRef, (data) => {
+      setdata(
+        data.docs.map((item) => {
+          return item.data();
+        })
+      );
+    });
+    console.log(data)
   };
 
   return (
@@ -88,8 +112,12 @@ const UserList = ({ tab, settab, table, settable }) => {
                 />
               </div>
               <div className="listcontent">
-                <span className="listuser">{item.username}</span>
-                <span className="listmsg">{item.msg}</span>
+                <span
+                  className="listuser"
+                  onClick={() => handleChatRoom(item.name)}
+                >
+                  {item.name}
+                </span>
               </div>
             </div>
           ))

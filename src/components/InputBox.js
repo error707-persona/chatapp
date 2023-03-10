@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 import { database } from "../firebase";
 import { collection, addDoc } from "firebase/firestore";
 import { auth } from "../firebase";
 import send from "../assests/send.svg";
+import AppContext from "../context/AppContext";
 const InputBox = () => {
   const [data, setdata] = useState("");
+  const context = useContext(AppContext);
 
   const collectionsRef = collection(database, "messages");
   const handleSend = () => {
@@ -18,7 +20,6 @@ const InputBox = () => {
     }
     setdata("");
   };
-  
 
   return (
     <div className="inputbox">
@@ -29,7 +30,7 @@ const InputBox = () => {
         value={data}
       ></input>
       <button onClick={handleSend} className="send">
-        <img src={send}/>
+        <img src={send} />
       </button>
     </div>
   );

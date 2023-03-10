@@ -4,6 +4,7 @@
   background-color: rgb(36, 36, 141);
   display: flex;
   align-items: center;
+  
 }
 .inputbox {
   position: absolute;
@@ -30,6 +31,7 @@ footer {
   margin-right: 10px;
   background-color: aliceblue;
   border: 0;
+  cursor: pointer;
 }
 
 .logout:hover {
@@ -135,6 +137,7 @@ footer {
   padding: 20px;
   background-color: rgb(11, 18, 121);
   color: white;
+  cursor: pointer;
   width: 30%;
 }
 

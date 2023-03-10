@@ -1,35 +1,16 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import profile from "../assests/profile.webp";
 import { collection, onSnapshot, orderBy } from "firebase/firestore";
 import { database } from "../firebase";
 import { auth } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollectionData } from "react-firebase-hooks/firestore";
-
-const Message = ({ table, settable }) => {
-  const [data, setdata] = useState([]);
-  
-  
+import AppContext from "../context/AppContext";
+const Message = () => {
   const dummy = useRef();
-
-  const getData = () => {
-    const collectionsRef = collection(database, table);
-    console.log(table, "table")
-    onSnapshot(collectionsRef, (data) => {
-      setdata(
-        data.docs
-          .map((item) => {
-            return item.data();
-          })
-          .sort((a, b) => a.timestamp - b.timestamp)
-      );
-    });
-  };
-
-  useEffect(() => {
-    getData();
-    dummy.current.scrollIntoView({ behavior: "smooth" });
-  }, []);
+  const context = useContext(AppContext);
+  const data = context.data;
+  const setdata = context.setdata;
 
   return (
     <div className="main">

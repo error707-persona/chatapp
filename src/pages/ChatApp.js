@@ -8,7 +8,7 @@ import UserList from "../components/UserList";
 const ChatApp = () => {
   const [tab, settab] = useState("chats");
   const [table, settable] = useState("messages");
- 
+
   return (
     <div className="chat-page">
       <header>
@@ -24,11 +24,7 @@ const ChatApp = () => {
           />
         </div>
 
-        <Message
-          
-          table={table}
-          settable={settable}
-        />
+        <Message table={table} settable={settable} />
       </div>
       <InputBox />
     </div>

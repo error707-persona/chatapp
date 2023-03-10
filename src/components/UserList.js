@@ -4,11 +4,22 @@ import { onSnapshot, collection, addDoc } from "firebase/firestore";
 import { database } from "../firebase";
 import { auth } from "../firebase";
 import AppContext from "../context/AppContext";
-const UserList = ({ tab, settab, table, settable }) => {
+const UserList = ({ tab, settab }) => {
   const context = useContext(AppContext);
   const data = context.data;
   const setdata = context.setdata;
-  const [chatrooms, setchatrooms] = useState([]);
+  const table = context.table;
+  const settable = context.settable;
+  const chatRef = collection(database, "chatrooms");
+  const [chatrooms, setchatrooms] = useState(
+    onSnapshot(chatRef, (data) => {
+      setchatrooms(
+        data.docs.map((item) => {
+          return item.data();
+        })
+      );
+    })
+  );
 
   const contacts = [
     {
@@ -39,7 +50,6 @@ const UserList = ({ tab, settab, table, settable }) => {
     addDoc(chatroomRef, {
       name: "ChatRoom#" + auth.currentUser.email + "," + username,
     });
-    const chatRef = collection(database, "chatrooms");
 
     onSnapshot(chatRef, (data) => {
       setchatrooms(
@@ -75,9 +85,10 @@ const UserList = ({ tab, settab, table, settable }) => {
           Contacts
         </button>
       </div>
+      <span>double click in chat tab to view chatroom</span>
       {tab === "chats"
         ? chatrooms?.map((item) => (
-            <div className="item">
+            <div className="item" onClick={() => handleChatRoom(item.name)}>
               <div className="avatar">
                 <img
                   src={profile}
@@ -87,10 +98,7 @@ const UserList = ({ tab, settab, table, settable }) => {
                 />
               </div>
               <div className="listcontent">
-                <span
-                  className="listuser"
-                  onClick={() => handleChatRoom(item.name)}
-                >
+                <span className="listuser">
                   {item.name.slice(9).split(",")[1]}
                 </span>
               </div>

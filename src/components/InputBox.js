@@ -8,8 +8,10 @@ import AppContext from "../context/AppContext";
 const InputBox = () => {
   const [data, setdata] = useState("");
   const context = useContext(AppContext);
-
-  const collectionsRef = collection(database, "messages");
+  const table = context.table;
+  const settable = context.settable;
+  console.log(table, "table")
+  const collectionsRef = collection(database, table);
   const handleSend = () => {
     if (data !== "") {
       addDoc(collectionsRef, {

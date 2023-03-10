@@ -11,10 +11,22 @@ const Message = () => {
   const context = useContext(AppContext);
   const data = context.data;
   const setdata = context.setdata;
+  const table = context.table;
   data.sort((a, b) => a.timestamp - b.timestamp);
   return (
     <div className="main">
       <div className="currentuser">
+        <div className="partner">
+        <div className="avatar">
+                <img
+                  src={profile}
+                  width={50}
+                  height={50}
+                  style={{ borderRadius: "50%" }}
+                />
+              </div>
+          {table.slice(9).split(",")[1]}
+        </div>
         {data?.map((item) =>
           item.username === auth.currentUser.email ? (
             <div className="block-user">

@@ -4,7 +4,7 @@ import { collection, onSnapshot } from "firebase/firestore";
 import { database } from "../firebase";
 const AppState = (props) => {
   const [data, setdata] = useState([]);
-  const [table, settable] = useState([]);
+  const [table, settable] = useState("messages");
   const getData = () => {
     const collectionsRef = collection(database, "messages");
 

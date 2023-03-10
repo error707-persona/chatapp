@@ -4,7 +4,6 @@
   background-color: rgb(36, 36, 141);
   display: flex;
   align-items: center;
-  
 }
 .inputbox {
   position: absolute;
@@ -114,13 +113,11 @@ footer {
   cursor: pointer;
   align-items: center;
   font-size: x-small;
-  
 }
 
-.avatar{
+.avatar {
   padding: 10px;
 }
-
 
 .listcontent {
   display: flex;
@@ -166,13 +163,11 @@ footer {
 
 /* chats */
 
-
 .tab {
   width: 50%;
   height: 50px;
   background-color: aliceblue;
   border: 1px solid blue;
-  
 }
 
 .tab:hover {
@@ -182,4 +177,12 @@ footer {
 
 .nav-buttons {
   margin-left: auto;
+}
+
+.partner {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  border-bottom: 1px solid rgb(67, 82, 255);
+  margin-left: 0;
 }

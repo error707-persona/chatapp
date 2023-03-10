@@ -11,7 +11,7 @@ const Message = () => {
   const context = useContext(AppContext);
   const data = context.data;
   const setdata = context.setdata;
-
+  data.sort((a, b) => a.timestamp - b.timestamp);
   return (
     <div className="main">
       <div className="currentuser">

@@ -24,7 +24,7 @@ const AppState = (props) => {
   }, []);
 
   return (
-    <AppContext.Provider value={{ data, setdata,table, settable }}>
+    <AppContext.Provider value={{ data, setdata, table, settable }}>
       {props.children}
     </AppContext.Provider>
   );

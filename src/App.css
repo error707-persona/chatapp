@@ -111,8 +111,16 @@ footer {
 .item {
   border-bottom: 1px solid rgb(165, 165, 165);
   display: flex;
+  cursor: pointer;
   align-items: center;
+  font-size: x-small;
+  
 }
+
+.avatar{
+  padding: 10px;
+}
+
 
 .listcontent {
   display: flex;
@@ -124,7 +132,7 @@ footer {
 }
 
 .listuser {
-  font-size: x-large;
+  font-size: large;
   font-weight: 500;
 }
 
@@ -134,7 +142,7 @@ footer {
 
 .start-chat {
   border: 0;
-  padding: 20px;
+  padding: 10px;
   background-color: rgb(11, 18, 121);
   color: white;
   cursor: pointer;

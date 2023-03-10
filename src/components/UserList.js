@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext} from "react";
+import React, { useState, useEffect, useContext } from "react";
 import profile from "../assests/profile.webp";
 import { onSnapshot, collection, addDoc } from "firebase/firestore";
 import { database } from "../firebase";
@@ -8,32 +8,7 @@ const UserList = ({ tab, settab, table, settable }) => {
   const context = useContext(AppContext);
   const data = context.data;
   const setdata = context.setdata;
-  const [chatrooms, setchatrooms] = useState([
-    {
-      name: "Areesha",
-    },
-    {
-      name: "Areesha",
-    },
-    {
-      name: "Areesha",
-    },
-    {
-      name: "Areesha",
-    },
-    {
-      name: "Areesha",
-    },
-    {
-      name: "Areesha",
-    },
-    {
-      name: "Areesha",
-    },
-    {
-      name: "Areesha",
-    },
-  ]);
+  const [chatrooms, setchatrooms] = useState([]);
 
   const contacts = [
     {
@@ -87,7 +62,7 @@ const UserList = ({ tab, settab, table, settable }) => {
         })
       );
     });
-    console.log(data)
+    console.log(data);
   };
 
   return (
@@ -116,7 +91,7 @@ const UserList = ({ tab, settab, table, settable }) => {
                   className="listuser"
                   onClick={() => handleChatRoom(item.name)}
                 >
-                  {item.name}
+                  {item.name.slice(9).split(",")[1]}
                 </span>
               </div>
             </div>

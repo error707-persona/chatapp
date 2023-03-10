@@ -75,19 +75,43 @@ const UserList = ({ tab, settab }) => {
     console.log(data);
   };
 
+  const handleChatrooms = () => {
+    return chatrooms?.filter((item) =>
+      item.name.includes(auth.currentUser.email)
+    );
+  };
+
   return (
     <>
       <div className="tabs">
-        <button className="tab" onClick={() => settab("chats")}>
+        <button
+          className="tab"
+          onClick={() => settab("chats")}
+          style={{
+            color: tab === "chats" ? "white" : "black",
+            backgroundColor: tab === "chats" ? "blue" : "white",
+          }}
+        >
           Chats
         </button>
-        <button className="tab" onClick={() => settab("contacts")}>
+        <button
+          className="tab"
+          onClick={() => settab("contacts")}
+          style={{
+            color: tab === "contacts" ? "white" : "black",
+            backgroundColor: tab === "contacts" ? "blue" : "white",
+          }}
+        >
           Contacts
         </button>
       </div>
-      <span>double click in chat tab to view chatroom</span>
+      <div className="options">
+        <span>double click in chat tab to view chatroom</span>
+        <button className="addcontacts">Add contacts</button>
+      </div>
+
       {tab === "chats"
-        ? chatrooms?.map((item) => (
+        ? handleChatrooms()?.map((item) => (
             <div className="item" onClick={() => handleChatRoom(item.name)}>
               <div className="avatar">
                 <img
@@ -99,7 +123,9 @@ const UserList = ({ tab, settab }) => {
               </div>
               <div className="listcontent">
                 <span className="listuser">
-                  {item.name.slice(9).split(",")[1]}
+                  {item.name.slice(9).split(",")[0] === auth.currentUser.email
+                    ? item.name.slice(9).split(",")[1]
+                    : item.name.slice(9).split(",")[0]}
                 </span>
               </div>
             </div>

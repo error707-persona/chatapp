@@ -6,9 +6,8 @@
   align-items: center;
 }
 .inputbox {
-  
   bottom: 0px;
-  
+
   display: flex;
   height: 3em;
 }
@@ -40,7 +39,6 @@ footer {
 
 .currentuser {
   width: 100%;
-
 }
 
 .main {
@@ -100,29 +98,26 @@ footer {
   width: 40%;
   overflow-y: scroll;
   overflow-x: hidden;
-  
 }
 
 .main-container {
   display: flex;
-  
+
   /* border: 1px solid red; */
   height: 92vh;
 }
-.message-container{
+.message-container {
   width: 100%;
-  margin:0;
-
+  margin: 0;
 }
 .item {
   border-bottom: 1px solid rgb(165, 165, 165);
   display: flex;
   cursor: pointer;
   align-items: center;
- 
 }
 
-.item span{
+.item span {
   font-size: small;
 }
 
@@ -140,8 +135,7 @@ footer {
 }
 
 .listuser {
-  font-size: large;
-  font-weight: 500;
+  font-size: x-large;
 }
 
 .listmsg {
@@ -154,8 +148,7 @@ footer {
   background-color: rgb(11, 18, 121);
   color: white;
   cursor: pointer;
-
- 
+  width: 40%;
 }
 
 .start-chat:hover {
@@ -187,7 +180,7 @@ footer {
   color: white;
 }
 
-.options{
+.options {
   display: flex;
   align-items: center;
   margin-top: 10px;
@@ -197,7 +190,7 @@ footer {
   font-size: small;
 }
 
-.panel{
+.panel {
   display: flex;
   align-items: center;
   margin-top: 10px;
@@ -206,17 +199,13 @@ footer {
   padding: 10px;
 }
 
-.addcontacts{
+.addcontacts {
   margin-left: auto;
   padding: 5px;
   border: 0;
   margin-right: 10px;
   font-size: small;
 }
-
-
-
-
 
 .nav-buttons {
   margin-left: auto;

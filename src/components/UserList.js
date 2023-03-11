@@ -55,7 +55,13 @@ const UserList = ({ tab, settab }) => {
       "ChatRoom#" + auth.currentUser.email + "," + username
     );
     const chatroomRef = collection(database, "chatrooms");
-    addDoc(collectionsRef, {
+    let isPresent = false;
+    chatrooms.forEach((item) => {
+      if (item.name === "ChatRoom#" + auth.currentUser.email + "," + username) {
+        isPresent = true;
+      }
+    });
+    if (!isPresent){addDoc(collectionsRef, {
       username: auth.currentUser.email,
       msg: "Hi",
       timestamp: Date.now(),
@@ -70,7 +76,7 @@ const UserList = ({ tab, settab }) => {
           return item.data();
         })
       );
-    });
+    });}
     console.log(chatrooms, "chat");
   };
 

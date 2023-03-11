@@ -12,7 +12,7 @@ const Navbar = () => {
       <div className="nav-buttons">
         {/* <button className="logout">+</button> */}
         <button className="logout" value="logout" onClick={handleSignOut}>
-          LOGOUT
+          Logout
         </button>
       </div>
     </div>

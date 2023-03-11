@@ -108,6 +108,9 @@ const UserList = ({ tab, settab }) => {
 
   return (
     <>
+    <div className="userlist-container">
+
+    
       <div className="tabs">
         <button
           className="tab"
@@ -132,7 +135,7 @@ const UserList = ({ tab, settab }) => {
       </div>
       <div>
         <div className="options">
-          <span>double click in chat tab to view chatroom</span>
+          <span>double click to view chatroom</span>
           <button
             className="addcontacts"
             onClick={() => setaddcontacts(!addcontacts)}
@@ -155,7 +158,8 @@ const UserList = ({ tab, settab }) => {
           </button>
         </div>
       </div>
-
+          
+          
       {tab === "chats"
         ? handleChatrooms()?.map((item) => (
             <div className="item" onClick={() => handleChatRoom(item.name)}>
@@ -197,6 +201,8 @@ const UserList = ({ tab, settab }) => {
               </div>
             </div>
           ))}
+          
+          </div>
     </>
   );
 };

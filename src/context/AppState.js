@@ -5,6 +5,16 @@ import { database } from "../firebase";
 const AppState = (props) => {
   const [data, setdata] = useState([]);
   const [table, settable] = useState("messages");
+  const chatRef = collection(database, "chatrooms");
+  const [chatrooms, setchatrooms] = useState(
+    onSnapshot(chatRef, (data) => {
+      setchatrooms(
+        data.docs.map((item) => {
+          return item.data();
+        })
+      );
+    })
+  );
   const getData = () => {
     const collectionsRef = collection(database, "messages");
 
@@ -24,7 +34,7 @@ const AppState = (props) => {
   }, []);
 
   return (
-    <AppContext.Provider value={{ data, setdata, table, settable }}>
+    <AppContext.Provider value={{ data, setdata, table, settable, chatrooms,setchatrooms }}>
       {props.children}
     </AppContext.Provider>
   );

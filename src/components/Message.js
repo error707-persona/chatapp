@@ -25,7 +25,7 @@ const Message = () => {
               style={{ borderRadius: "50%" }}
             />
           </div>
-          {table.slice(9).split(",")[1]}
+          {(auth.currentUser!==null)?(auth.currentUser.email===table.slice(9).split(",")[0])?table.slice(9).split(",")[1]:table.slice(9).split(",")[0]:table.slice(9).split(",")[1]}
         </div>
         {data?.map((item) =>
           item.username === auth.currentUser.email ? (

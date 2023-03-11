@@ -38,6 +38,17 @@ const UserList = ({ tab, settab }) => {
     },
   ]);
 
+  const getContacts = () => {
+    const contactsRef = collection(database, "contacts");
+    onSnapshot(contactsRef, (data) => {
+      setcontacts(
+        data.docs.map((item) => {
+          return item.data();
+        })
+      );
+    });
+  };
+  getContacts();
   const handleCreateChat = (username) => {
     const collectionsRef = collection(
       database,
@@ -84,7 +95,13 @@ const UserList = ({ tab, settab }) => {
   };
 
   const handleAddContacts = () => {
-    setcontacts([...contacts, { username: username }]);
+    const contactsRef = collection(database, "contacts");
+    if (auth.currentUser.email!==username){addDoc(contactsRef, {
+      username: username,
+    });
+    getContacts();
+  }
+    
     setusername("");
     setaddcontacts(!addcontacts);
   };
@@ -131,6 +148,7 @@ const UserList = ({ tab, settab }) => {
             type="email"
             style={{ padding: "10px", width: "70%", outline: "none" }}
             onChange={(e) => setusername(e.target.value)}
+            value={username}
           />
           <button className="addcontacts" onClick={handleAddContacts}>
             Add

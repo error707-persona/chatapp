@@ -11,6 +11,8 @@ const UserList = ({ tab, settab }) => {
   const table = context.table;
   const settable = context.settable;
   const chatRef = collection(database, "chatrooms");
+  const [addcontacts, setaddcontacts] = useState(false);
+  const [username, setusername] = useState("");
   const [chatrooms, setchatrooms] = useState(
     onSnapshot(chatRef, (data) => {
       setchatrooms(
@@ -21,7 +23,7 @@ const UserList = ({ tab, settab }) => {
     })
   );
 
-  const contacts = [
+  const [contacts, setcontacts] = useState([
     {
       username: "afreensayed@gmail.com",
     },
@@ -34,7 +36,7 @@ const UserList = ({ tab, settab }) => {
     {
       username: "racheal@gmail.com",
     },
-  ];
+  ]);
 
   const handleCreateChat = (username) => {
     const collectionsRef = collection(
@@ -81,6 +83,12 @@ const UserList = ({ tab, settab }) => {
     );
   };
 
+  const handleAddContacts = () => {
+    setcontacts([...contacts, { username: username }]);
+    setusername("");
+    setaddcontacts(!addcontacts);
+  };
+
   return (
     <>
       <div className="tabs">
@@ -105,9 +113,29 @@ const UserList = ({ tab, settab }) => {
           Contacts
         </button>
       </div>
-      <div className="options">
-        <span>double click in chat tab to view chatroom</span>
-        <button className="addcontacts">Add contacts</button>
+      <div>
+        <div className="options">
+          <span>double click in chat tab to view chatroom</span>
+          <button
+            className="addcontacts"
+            onClick={() => setaddcontacts(!addcontacts)}
+          >
+            Add contacts
+          </button>
+        </div>
+        <div
+          className="panel"
+          style={{ visibility: !addcontacts ? "hidden" : "visible" }}
+        >
+          <input
+            type="email"
+            style={{ padding: "10px", width: "70%", outline: "none" }}
+            onChange={(e) => setusername(e.target.value)}
+          />
+          <button className="addcontacts" onClick={handleAddContacts}>
+            Add
+          </button>
+        </div>
       </div>
 
       {tab === "chats"

@@ -184,6 +184,15 @@ footer {
   padding: 20px;
 }
 
+.panel{
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  border-bottom: 1px solid black;
+  margin-left: auto;
+  padding: 20px;
+}
+
 .addcontacts{
   margin-left: auto;
   padding: 10px;

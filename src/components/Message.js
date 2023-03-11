@@ -17,14 +17,14 @@ const Message = () => {
     <div className="main">
       <div className="currentuser">
         <div className="partner">
-        <div className="avatar">
-                <img
-                  src={profile}
-                  width={50}
-                  height={50}
-                  style={{ borderRadius: "50%" }}
-                />
-              </div>
+          <div className="avatar">
+            <img
+              src={profile}
+              width={50}
+              height={50}
+              style={{ borderRadius: "50%" }}
+            />
+          </div>
           {table.slice(9).split(",")[1]}
         </div>
         {data?.map((item) =>

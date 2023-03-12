@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import AppContext from "./AppContext";
 import { collection, onSnapshot } from "firebase/firestore";
 import { database } from "../firebase";
@@ -9,16 +9,8 @@ const AppState = (props) => {
   const chatRef = collection(database, "chatrooms");
   const groupsRef = collection(database, "groups");
   const [allgroups, setallgroups] = useState([]);
-  const getAllGroups = (data) => {
-    return data.docs.filter((item) => {
-       item.data().participants.includes(auth.currentUser.email);
-    })
-  }
-  onSnapshot(groupsRef, (data) => {
-    setallgroups(
-      getAllGroups(data)
-    );
-  });
+  const dummy = useRef();
+  
   const [chatrooms, setchatrooms] = useState(
     onSnapshot(chatRef, (data) => {
       setchatrooms(
@@ -47,7 +39,7 @@ const AppState = (props) => {
   }, []);
 
   return (
-    <AppContext.Provider value={{ data, setdata, table, settable, chatrooms,setchatrooms }}>
+    <AppContext.Provider value={{ dummy, data, setdata, table, settable, chatrooms,setchatrooms }}>
       {props.children}
     </AppContext.Provider>
   );

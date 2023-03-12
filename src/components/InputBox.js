@@ -15,6 +15,7 @@ const InputBox = () => {
   const [data, setdata] = useState("");
   const context = useContext(AppContext);
   const table = context.table;
+  const dummy = context.dummy;
   const collectionsRef = collection(database, table);
   const [file, setfile] = useState("");
   const [emojiPicker, setemojiPicker] = useState(false);
@@ -30,6 +31,7 @@ const InputBox = () => {
       });
     }
     setdata("");
+    dummy.current.scrollIntoView({behavior:'smooth'})
   };
 
   const handleSubmit = () => {
@@ -57,6 +59,7 @@ const InputBox = () => {
     );
     setimagePicker(!imagePicker)
     setdata("");
+    dummy.current.scrollIntoView({behavior:'smooth'}) 
   };
 
   const onEmojiClick = (event, emojiObject) => {
@@ -68,7 +71,7 @@ const InputBox = () => {
     <div className="inputbox">
       <input
         className="input"
-        placeholder="Type you message here..."
+        placeholder="Type your message here..."
         onChange={(e) => setdata(e.target.value)}
         value={data}
       ></input>

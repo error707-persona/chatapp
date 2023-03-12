@@ -14,14 +14,15 @@ import { useCollectionData } from "react-firebase-hooks/firestore";
 import AppContext from "../context/AppContext";
 import trash from "../assests/trash.svg";
 const Message = () => {
-  const dummy = useRef();
+  
   const context = useContext(AppContext);
   const data = context.data;
   const setdata = context.setdata;
   const table = context.table;
+  const dummy = context.dummy;
   data.sort((a, b) => a.timestamp - b.timestamp);
   const [chatrooms, setchatrooms] = useState([]);
-
+  
   const handleDeleteChat = async () => {};
   return (
     <div className="main">
@@ -35,11 +36,19 @@ const Message = () => {
               style={{ borderRadius: "50%" }}
             />
           </div>
-          {auth.currentUser !== null
+          {/* {auth.currentUser !== null
             ? auth.currentUser.email === table.slice(9).split(",")[0]
               ? table.slice(9).split(",")[1]
               : table.slice(9).split(",")[0]
-            : table.slice(9).split(",")[1]}
+            : table.slice(9).split(",")[1]
+          } */}
+          {table.slice(0,9)!=="ChatRoom"?"Group: "+table:
+          auth.currentUser !== null
+          ? auth.currentUser.email === table.slice(9).split(",")[0]
+            ? table.slice(9).split(",")[1]
+            : table.slice(9).split(",")[0]
+          : table.slice(9).split(",")[1]
+          }
           <div className="deleteChat">
             <button
               style={{
@@ -94,8 +103,9 @@ const Message = () => {
             </div>
           )
         )}
-        <div ref={dummy}></div>
+       <div ref={dummy} style={{ height:"100px"}}></div>
       </div>
+      
     </div>
   );
 };

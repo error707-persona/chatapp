@@ -17,7 +17,7 @@ const UserList = ({ tab, settab }) => {
   const [addcontacts, setaddcontacts] = useState(false);
   const [group, setgroup] = useState("");
   const [participants, setparticipants] = useState([]);
-  const [allparticipants, setallparticipants] = useState([])
+  const [allparticipants, setallparticipants] = useState([]);
 
   const [username, setusername] = useState("");
   var prevusername = "";
@@ -63,9 +63,11 @@ const UserList = ({ tab, settab }) => {
       addDoc(collectionsRef, {
         username: auth.currentUser.email,
         msg: "Hi",
+        imgUrl: "",
         timestamp: Date.now(),
       });
       addDoc(chatroomRef, {
+        groupname: "",
         name: "ChatRoom#" + auth.currentUser.email + "," + username,
       });
 
@@ -80,8 +82,13 @@ const UserList = ({ tab, settab }) => {
     console.log(chatrooms, "chat");
   };
 
-  const handleChatRoom = (name) => {
-    settable(name);
+  const handleChatRoom = (name, groupname) => {
+    if (name.slice(0, 9) === "ChatRoom") {
+      settable(name);
+    } else {
+      settable(groupname);
+    }
+
     const chatRef = collection(database, table);
 
     onSnapshot(chatRef, (data) => {
@@ -117,12 +124,14 @@ const UserList = ({ tab, settab }) => {
     if (typeof name === "string") {
       setusername(name);
     }
+
     var values = new Set(participants);
     console.log(values, "values");
     if (participants[participants.length - 1] !== username && username !== "") {
       values.add(username);
       setparticipants(values);
     }
+    participants.add(auth.currentUser.email);
     setallparticipants([...participants]);
     console.log(participants, "participants");
   };
@@ -132,43 +141,55 @@ const UserList = ({ tab, settab }) => {
     addDoc(groupsRef, {
       name: group,
       participants: allparticipants.join(","),
-    }).then(() => {
-      console.log("Data Added");
     })
-    .catch((err) => {
-      console.log(err.message);
-    });
-    if (group!==""){
+      .then(() => {
+        console.log("Data Added");
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+    if (group !== "") {
       const creategroupRef = collection(database, group);
       addDoc(creategroupRef, {
-      username: auth.currentUser.email,
-      msg: "Hi",
-      timestamp: Date.now(),
-      imgUrl:""
-    }).then(() => {
-      console.log("Group made");
-    }).catch((err) => {
-      console.log(err.message);
-    });
-    }
+        username: auth.currentUser.email,
+        msg: "Hi",
+        timestamp: Date.now(),
+        imgUrl: "",
+      })
+        .then(() => {
+          console.log("Group made");
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
 
-    console.log(chatrooms)
-    
-    
-    
-   
+      //chatroms
+      const addInChatroomsRef = collection(database, "chatrooms");
+      addDoc(addInChatroomsRef, {
+        groupname: group,
+        name: allparticipants.join(","),
+      })
+        .then(() => {
+          console.log("Group made");
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+    }
     setgroup("");
     setparticipants([]);
     setallparticipants([]);
-    setusername("")
+    setusername("");
   };
 
   const handleClear = () => {
     setparticipants([]);
     setallparticipants([]);
     setusername("");
-  }
+    setgroup("");
+  };
 
+  // console.log(chatrooms, "chatrroms")
   return (
     <>
       <div className="userlist-container">
@@ -178,7 +199,7 @@ const UserList = ({ tab, settab }) => {
             onClick={() => settab("chats")}
             style={{
               color: tab === "chats" ? "white" : "black",
-              backgroundColor: tab === "chats" ? "blue" : "white",
+              backgroundColor: tab === "chats" ? "rgb(37, 45, 192)" : "white",
             }}
           >
             Chats
@@ -188,7 +209,8 @@ const UserList = ({ tab, settab }) => {
             onClick={() => settab("contacts")}
             style={{
               color: tab === "contacts" ? "white" : "black",
-              backgroundColor: tab === "contacts" ? "blue" : "white",
+              backgroundColor:
+                tab === "contacts" ? "rgb(37, 45, 192)" : "white",
             }}
           >
             Contacts
@@ -198,7 +220,7 @@ const UserList = ({ tab, settab }) => {
             onClick={() => settab("groups")}
             style={{
               color: tab === "groups" ? "white" : "black",
-              backgroundColor: tab === "groups" ? "blue" : "white",
+              backgroundColor: tab === "groups" ? "rgb(37, 45, 192)" : "white",
             }}
           >
             Create Group
@@ -209,7 +231,13 @@ const UserList = ({ tab, settab }) => {
             <div className="options">
               <input
                 type="text"
-                style={{ padding: "10px", width: "70%", outline: "none" }}
+                style={{
+                  padding: "10px",
+                  width: "70%",
+                  outline: "none",
+                  border: "1px solid white",
+                  borderRadius: "0.3rem",
+                }}
                 onChange={(e) => setgroup(e.target.value)}
                 placeholder="Enter group name"
                 value={group}
@@ -239,7 +267,13 @@ const UserList = ({ tab, settab }) => {
           >
             <input
               type="email"
-              style={{ padding: "10px", width: "55%", outline: "none" }}
+              style={{
+                padding: "10px",
+                width: "40%",
+                outline: "none",
+                border: "1px solid white",
+                borderRadius: "0.3rem",
+              }}
               onChange={(e) => setusername(e.target.value)}
               value={username}
               placeholder="Enter email"
@@ -252,24 +286,30 @@ const UserList = ({ tab, settab }) => {
             </button>
             {tab === "groups" ? (
               <>
-              <button className="addcontacts" onClick={handleCreateGroup}>
-                Create
-              </button>
-              <button className="addcontacts" onClick={handleClear}>
-              Clear
-            </button>
+                <button className="addcontacts" onClick={handleCreateGroup}>
+                  Create
+                </button>
+                <button className="addcontacts" onClick={handleClear}>
+                  Clear
+                </button>
               </>
-              
             ) : (
               ""
             )}
           </div>
-          {(tab==="groups")?allparticipants.map((item)=>{return <div className="selected-members">{item}</div>}):""}
+          {tab === "groups"
+            ? allparticipants.map((item) => {
+                return <div className="selected-members">{item}</div>;
+              })
+            : ""}
         </div>
 
         {tab === "chats"
           ? handleChatrooms()?.map((item) => (
-              <div className="item" onClick={() => handleChatRoom(item.name)}>
+              <div
+                className="item"
+                onClick={() => handleChatRoom(item.name, item.groupname)}
+              >
                 <div className="avatar">
                   <img
                     src={profile}
@@ -280,7 +320,13 @@ const UserList = ({ tab, settab }) => {
                 </div>
                 <div className="listcontent">
                   <span className="listuser">
-                    {item.name.slice(9).split(",")[0] === auth.currentUser.email
+                    {/* {item.name.slice(9).split(",")[0] === auth.currentUser.email
+                      ? item.name.slice(9).split(",")[1]
+                      : item.name.slice(9).split(",")[0]} */}
+                    {item.groupname !== ""
+                      ? "Group: " + item.groupname
+                      : item.name.slice(9).split(",")[0] ===
+                        auth.currentUser.email
                       ? item.name.slice(9).split(",")[1]
                       : item.name.slice(9).split(",")[0]}
                   </span>

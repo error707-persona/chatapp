@@ -10,7 +10,7 @@ import AppContext from "../context/AppContext";
 import EmojiPicker from "emoji-picker-react";
 import { app, storage } from "../firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-
+import { useOnKeyPress } from "../hooks/useOnKeyPress";
 const InputBox = () => {
   const [data, setdata] = useState("");
   const context = useContext(AppContext);
@@ -19,12 +19,13 @@ const InputBox = () => {
   const [file, setfile] = useState("");
   const [emojiPicker, setemojiPicker] = useState(false);
   const [imagePicker, setimagePicker] = useState(false);
-  const storageRef = ref(storage, `images/${file.name}`);
+  
   const handleSend = () => {
     if (data !== "") {
       addDoc(collectionsRef, {
         username: auth.currentUser.email,
         msg: data,
+        imgUrl: "",
         timestamp: Date.now(),
       });
     }
@@ -32,12 +33,12 @@ const InputBox = () => {
   };
 
   const handleSubmit = () => {
-    const uploadTask = uploadBytesResumable(storageRef, data);
+    const storageRef = ref(storage, file.name);
+    const uploadTask = uploadBytesResumable(storageRef, file);
     uploadTask.on(
       "state_changed",
       (snapshot) => {
-        const progress =
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         console.log("Upload is " + progress + "%done");
       },
       (err) => {
@@ -45,12 +46,24 @@ const InputBox = () => {
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          console.log("file available at", downloadURL);
+          addDoc(collectionsRef, {
+            username: auth.currentUser.email,
+            msg: data,
+            imgUrl: downloadURL,
+            timestamp: Date.now(),
+          });
         });
       }
     );
+    setimagePicker(!imagePicker)
+    setdata("");
   };
 
+  const onEmojiClick = (event, emojiObject) => {
+    setdata((data) => data + emojiObject.srcElement.img);
+    console.log(event, "objects");
+  };
+  useOnKeyPress(handleSend, "Enter");
   return (
     <div className="inputbox">
       <input
@@ -64,22 +77,26 @@ const InputBox = () => {
       </button>
       <div className="dropdown">
         <div className="dropdown-menu" style={{ opacity: emojiPicker ? 1 : 0 }}>
-          <EmojiPicker />
+          <EmojiPicker onEmojiClick={onEmojiClick} />
         </div>
         <button className="send" onClick={() => setemojiPicker(!emojiPicker)}>
           <img src={emoji} />
         </button>
       </div>
       <div className="dropdown">
-        <div className="dropdown-menu"  style={{ opacity: imagePicker ? 1 : 0 }}>
-          <input type="file"/>
-        
-          <button onClick={handleSubmit} className="submit">Send</button>
-        </div>
-          <button className="send" onClick={() => setimagePicker(!imagePicker)}>
-            <img src={attach} />
+        <div className="dropdown-menu" style={{ opacity: imagePicker ? 1 : 0 }}>
+          <input
+            type="file"
+            onChange={(event) => setfile(event.target.files[0])}
+          />
+
+          <button onClick={handleSubmit} className="submit">
+            Send
           </button>
-        
+        </div>
+        <button className="send" onClick={() => setimagePicker(!imagePicker)}>
+          <img src={attach} />
+        </button>
       </div>
     </div>
   );

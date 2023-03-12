@@ -97,7 +97,7 @@ const UserList = ({ tab, settab }) => {
 
   const handleAddContacts = () => {
     const contactsRef = collection(database, "contacts");
-    if (auth.currentUser.email !== username) {
+    if (auth.currentUser.email !== username && username !== "") {
       addDoc(contactsRef, {
         username: username,
       });

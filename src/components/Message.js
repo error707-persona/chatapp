@@ -1,6 +1,12 @@
 import React, { useEffect, useState, useRef, useContext } from "react";
 import profile from "../assests/profile.webp";
-import { collection, onSnapshot, orderBy } from "firebase/firestore";
+import {
+  collection,
+  onSnapshot,
+  orderBy,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
 import { database } from "../firebase";
 import { auth } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -14,11 +20,9 @@ const Message = () => {
   const setdata = context.setdata;
   const table = context.table;
   data.sort((a, b) => a.timestamp - b.timestamp);
+  const [chatrooms, setchatrooms] = useState([]);
 
-  const handleDeleteChat = () => {
-    
-  
-  };
+  const handleDeleteChat = async () => {};
   return (
     <div className="main">
       <div className="currentuser">
@@ -55,9 +59,15 @@ const Message = () => {
             <div className="block-user">
               <div style={{ display: "flex", flexDirection: "column" }}>
                 <span className="username">{item.username}</span>
-                <div className="usermsg" style={{ marginLeft: "auto" }}>
-                  {item.msg}
-                </div>
+                {item.imgUrl !== "" ? (
+                  <div className="usermsg">
+                    <img src={item.imgUrl} width={200} height={200} />
+                    {item.msg}
+                  </div>
+                ) : (
+                  <div className="usermsg">{item.msg}</div>
+                )}
+
                 <br></br>
                 {/* <div>{Date(item.timestamp).split(" ").slice(4, 5)}</div> */}
               </div>
@@ -72,9 +82,14 @@ const Message = () => {
               </div>
               <div>
                 <span className="username">{item.username}</span>
-                <div className="usermsg">{item.msg}</div>
-                <br></br>
-                {/* <div>{Date(item.timestamp).split(" ").slice(4, 5)}</div> */}
+                {item.imgUrl !== "" ? (
+                  <div className="usermsg">
+                    <img src={item.imgUrl} width={200} height={200} />
+                    {item.msg}
+                  </div>
+                ) : (
+                  <div className="usermsg">{item.msg}</div>
+                )}
               </div>
             </div>
           )

@@ -3,7 +3,7 @@
 
 # features 
 1. users can add the emails of their friends and they can start a chatroom
-2. users can upload images and send in the send
+2. users can upload images in chatrooms
 3. users can send emojis
 4. users can make group chatrooms 
 5. users can delete chatrooms

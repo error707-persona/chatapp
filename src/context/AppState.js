@@ -2,16 +2,29 @@ import React, { useState, useEffect } from "react";
 import AppContext from "./AppContext";
 import { collection, onSnapshot } from "firebase/firestore";
 import { database } from "../firebase";
+import { auth } from "../firebase";
 const AppState = (props) => {
   const [data, setdata] = useState([]);
   const [table, settable] = useState("messages");
   const chatRef = collection(database, "chatrooms");
+  const groupsRef = collection(database, "groups");
+  const [allgroups, setallgroups] = useState([]);
+  const getAllGroups = (data) => {
+    return data.docs.filter((item) => {
+       item.data().participants.includes(auth.currentUser.email);
+    })
+  }
+  onSnapshot(groupsRef, (data) => {
+    setallgroups(
+      getAllGroups(data)
+    );
+  });
   const [chatrooms, setchatrooms] = useState(
     onSnapshot(chatRef, (data) => {
       setchatrooms(
-        data.docs.map((item) => {
+        [...data.docs.map((item) => {
           return item.data();
-        })
+        }), ...allgroups]
       );
     })
   );

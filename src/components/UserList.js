@@ -4,6 +4,7 @@ import { onSnapshot, collection, addDoc } from "firebase/firestore";
 import { database } from "../firebase";
 import { auth } from "../firebase";
 import AppContext from "../context/AppContext";
+
 const UserList = ({ tab, settab }) => {
   const context = useContext(AppContext);
   const data = context.data;
@@ -137,11 +138,36 @@ const UserList = ({ tab, settab }) => {
     .catch((err) => {
       console.log(err.message);
     });
+    if (group!==""){
+      const creategroupRef = collection(database, group);
+      addDoc(creategroupRef, {
+      username: auth.currentUser.email,
+      msg: "Hi",
+      timestamp: Date.now(),
+      imgUrl:""
+    }).then(() => {
+      console.log("Group made");
+    }).catch((err) => {
+      console.log(err.message);
+    });
+    }
+
+    console.log(chatrooms)
+    
+    
+    
+   
     setgroup("");
     setparticipants([]);
     setallparticipants([]);
     setusername("")
   };
+
+  const handleClear = () => {
+    setparticipants([]);
+    setallparticipants([]);
+    setusername("");
+  }
 
   return (
     <>
@@ -213,7 +239,7 @@ const UserList = ({ tab, settab }) => {
           >
             <input
               type="email"
-              style={{ padding: "10px", width: "70%", outline: "none" }}
+              style={{ padding: "10px", width: "55%", outline: "none" }}
               onChange={(e) => setusername(e.target.value)}
               value={username}
               placeholder="Enter email"
@@ -225,9 +251,15 @@ const UserList = ({ tab, settab }) => {
               Add
             </button>
             {tab === "groups" ? (
+              <>
               <button className="addcontacts" onClick={handleCreateGroup}>
                 Create
               </button>
+              <button className="addcontacts" onClick={handleClear}>
+              Clear
+            </button>
+              </>
+              
             ) : (
               ""
             )}

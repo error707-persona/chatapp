@@ -1,5 +1,5 @@
 # Results 
-![tempsnip](https://user-images.githubusercontent.com/53540032/224528309-101a037e-4944-432f-85fa-b181c4119e70.png)
+![tempsnip](https://user-images.githubusercontent.com/53540032/224528360-9816982a-6173-4532-b11d-ef5557838b81.png)
 
 # features 
 1. users can add the emails of their friends and they can start a chatroom

@@ -14,8 +14,12 @@ const UserList = ({ tab, settab }) => {
   const setchatrooms = context.setchatrooms;
   const chatRef = collection(database, "chatrooms");
   const [addcontacts, setaddcontacts] = useState(false);
-  const [username, setusername] = useState("");
+  const [group, setgroup] = useState("");
+  const [participants, setparticipants] = useState([]);
+  const [allparticipants, setallparticipants] = useState([])
 
+  const [username, setusername] = useState("");
+  var prevusername = "";
   const [contacts, setcontacts] = useState([
     {
       username: "afreensayed@gmail.com",
@@ -108,7 +112,36 @@ const UserList = ({ tab, settab }) => {
     setaddcontacts(!addcontacts);
   };
 
-  
+  const handleAddInGroup = (name) => {
+    if (typeof name === "string") {
+      setusername(name);
+    }
+    var values = new Set(participants);
+    console.log(values, "values");
+    if (participants[participants.length - 1] !== username) {
+      values.add(username);
+      setparticipants(values);
+    }
+    setallparticipants([...participants]);
+    console.log(participants, "participants");
+  };
+
+  const handleCreateGroup = () => {
+    const groupsRef = collection(database, "groups");
+    addDoc(groupsRef, {
+      name: group,
+      participants: allparticipants.join(","),
+    }).then(() => {
+      console.log("Data Added");
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+    setgroup("");
+    setparticipants([]);
+    setallparticipants([]);
+    setusername("")
+  };
 
   return (
     <>
@@ -134,17 +167,46 @@ const UserList = ({ tab, settab }) => {
           >
             Contacts
           </button>
+          <button
+            className="tab"
+            onClick={() => settab("groups")}
+            style={{
+              color: tab === "groups" ? "white" : "black",
+              backgroundColor: tab === "groups" ? "blue" : "white",
+            }}
+          >
+            Create Group
+          </button>
         </div>
         <div>
-          <div className="options">
-            <span>double click to view chatroom</span>
-            <button
-              className="addcontacts"
-              onClick={() => setaddcontacts(!addcontacts)}
-            >
-              Add contacts
-            </button>
-          </div>
+          {tab === "groups" ? (
+            <div className="options">
+              <input
+                type="text"
+                style={{ padding: "10px", width: "70%", outline: "none" }}
+                onChange={(e) => setgroup(e.target.value)}
+                placeholder="Enter group name"
+                value={group}
+              />
+              &nbsp;&nbsp;&nbsp;
+              <button
+                className="addcontacts"
+                onClick={() => setaddcontacts(!addcontacts)}
+              >
+                Add participants
+              </button>
+            </div>
+          ) : (
+            <div className="options">
+              <span>double click to view chatroom</span>
+              <button
+                className="addcontacts"
+                onClick={() => setaddcontacts(!addcontacts)}
+              >
+                Add contacts
+              </button>
+            </div>
+          )}
           <div
             className="panel"
             style={{ visibility: !addcontacts ? "hidden" : "visible" }}
@@ -154,11 +216,23 @@ const UserList = ({ tab, settab }) => {
               style={{ padding: "10px", width: "70%", outline: "none" }}
               onChange={(e) => setusername(e.target.value)}
               value={username}
+              placeholder="Enter email"
             />
-            <button className="addcontacts" onClick={handleAddContacts}>
+            <button
+              className="addcontacts"
+              onClick={tab !== "groups" ? handleAddContacts : handleAddInGroup}
+            >
               Add
             </button>
+            {tab === "groups" ? (
+              <button className="addcontacts" onClick={handleCreateGroup}>
+                Create
+              </button>
+            ) : (
+              ""
+            )}
           </div>
+          {allparticipants.map((item)=>{return <div className="selected-members">{item}</div>})}
         </div>
 
         {tab === "chats"
@@ -193,12 +267,26 @@ const UserList = ({ tab, settab }) => {
                 </div>
                 <div className="listcontent">
                   <span className="listuser">{item.username}</span>
-                  <button
-                    className="start-chat"
-                    onClick={() => handleCreateChat(item.username)}
-                  >
-                    Start Chat
-                  </button>
+                  {tab !== "groups" ? (
+                    <button
+                      className="start-chat"
+                      onClick={() => handleCreateChat(item.username)}
+                    >
+                      Start Chat
+                    </button>
+                  ) : (
+                    ""
+                  )}
+                  {tab === "groups" ? (
+                    <button
+                      className="start-chat"
+                      onClick={() => handleAddInGroup(item.username)}
+                    >
+                      Add In group
+                    </button>
+                  ) : (
+                    ""
+                  )}
                 </div>
               </div>
             ))}

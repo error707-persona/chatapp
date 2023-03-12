@@ -119,7 +119,7 @@ const UserList = ({ tab, settab }) => {
     }
     var values = new Set(participants);
     console.log(values, "values");
-    if (participants[participants.length - 1] !== username) {
+    if (participants[participants.length - 1] !== username && username !== "") {
       values.add(username);
       setparticipants(values);
     }
@@ -264,7 +264,7 @@ const UserList = ({ tab, settab }) => {
               ""
             )}
           </div>
-          {allparticipants.map((item)=>{return <div className="selected-members">{item}</div>})}
+          {(tab==="groups")?allparticipants.map((item)=>{return <div className="selected-members">{item}</div>}):""}
         </div>
 
         {tab === "chats"

@@ -57,15 +57,15 @@ const Message = () => {
         {data?.map((item) =>
           item.username === auth.currentUser.email ? (
             <div className="block-user">
-              <div style={{ display: "flex", flexDirection: "column" }}>
+              <div style={{ marginLeft:"auto" }}>
                 <span className="username">{item.username}</span>
                 {item.imgUrl !== "" ? (
-                  <div className="usermsg">
+                  <div className="usermsg" style={{ marginLeft:"auto" }}>
                     <img src={item.imgUrl} width={200} height={200} />
                     {item.msg}
                   </div>
                 ) : (
-                  <div className="usermsg">{item.msg}</div>
+                  <div className="usermsg" style={{ marginLeft:"auto" }}>{item.msg}</div>
                 )}
 
                 <br></br>

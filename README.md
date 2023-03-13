@@ -8,3 +8,9 @@
 3. users can send emojis
 4. users can make group chats
 5. users can delete chatrooms
+
+# Drawbacks
+1. Does not show prompts or alerts for any errors or acknowledgement.
+2. Cannot set profile picture.
+3. Ui could have been improved.
+4. Once a group is made cannot see participants.

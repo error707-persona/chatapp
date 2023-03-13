@@ -12,7 +12,7 @@ const Login = () => {
         window.location.href = "/chatapp";
       })
       .catch((err) => {
-        window.location.href = "/login";
+        window.location.href = "/";
       });
   };
   return (

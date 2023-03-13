@@ -42,7 +42,7 @@ const Message = () => {
               : table.slice(9).split(",")[0]
             : table.slice(9).split(",")[1]
           } */}
-          {table.slice(0,9)!=="ChatRoom"?"Group: "+table:
+          {!table.includes("ChatRoom#")?"Group: "+table:
           auth.currentUser !== null
           ? auth.currentUser.email === table.slice(9).split(",")[0]
             ? table.slice(9).split(",")[1]

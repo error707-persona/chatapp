@@ -78,17 +78,19 @@ const UserList = ({ tab, settab }) => {
           })
         );
       });
+    } else {
+      alert("Chatroom already exists");
     }
     console.log(chatrooms, "chat");
   };
 
   const handleChatRoom = (name, groupname) => {
-    if (name.slice(0, 9) === "ChatRoom") {
+    if (name.includes("ChatRoom#")) {
       settable(name);
     } else {
       settable(groupname);
     }
-
+    console.log(table, "Table")
     const chatRef = collection(database, table);
 
     onSnapshot(chatRef, (data) => {

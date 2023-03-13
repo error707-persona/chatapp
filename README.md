@@ -14,3 +14,4 @@
 2. Cannot set profile picture.
 3. Ui could have been improved.
 4. Once a group is made cannot see participants.
+5. Does not have a login other than googleAuth.

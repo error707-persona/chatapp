@@ -98,7 +98,7 @@ const InputBox = () => {
           </button>
         </div>
         <button className="send" onClick={() => setimagePicker(!imagePicker)}>
-          <img src={attach} />
+          <img src={attach} width={50} height={50}/>
         </button>
       </div>
     </div>

@@ -62,6 +62,7 @@
 
 .dropdown {
   position: relative;
+  background-color: aliceblue;
 }
 
 .dropdown-menu {
@@ -127,6 +128,7 @@ footer {
   margin-top: 1em;
   color: white;
   border-radius: 1em;
+  max-width: 80%;
 }
 .block {
   display: flex;
@@ -229,9 +231,16 @@ footer {
   height: 100vh;
 }
 
+
+
 .google {
   padding: 10px;
   width: 400px;
+  background-color: aliceblue;
+}
+
+.google img{
+  background-color: aliceblue;
 }
 
 /* chats */
@@ -319,4 +328,10 @@ footer {
 
 .deleteChat {
   margin-left: auto;
+  margin-right:50px;
+  
+}
+
+.deleteChat button {
+  border: 1px solid white;
 }

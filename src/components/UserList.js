@@ -73,9 +73,7 @@ const UserList = ({ tab, settab }) => {
 
       onSnapshot(chatRef, (data) => {
         setchatrooms(
-          data.docs.map((item) => {
-            return item.data();
-          })
+         console.log(data.docs, "chatroms")
         );
       });
     } else {
@@ -178,6 +176,8 @@ const UserList = ({ tab, settab }) => {
           console.log(err.message);
         });
     }
+
+    alert('Chat was created')
     setgroup("");
     setparticipants([]);
     setallparticipants([]);
@@ -299,6 +299,7 @@ const UserList = ({ tab, settab }) => {
               ""
             )}
           </div>
+          {tab==="groups"?"Participants: ":""}
           {tab === "groups"
             ? allparticipants.map((item) => {
                 return <div className="selected-members">{item}</div>;

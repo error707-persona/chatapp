@@ -23,7 +23,7 @@ const Message = () => {
   data.sort((a, b) => a.timestamp - b.timestamp);
   const [chatrooms, setchatrooms] = useState([]);
   
-  const handleDeleteChat = async () => {};
+  
   return (
     <div className="main">
       <div className="currentuser">
@@ -49,25 +49,13 @@ const Message = () => {
             : table.slice(9).split(",")[0]
           : table.slice(9).split(",")[1]
           }
-          <div className="deleteChat">
-            <button
-              style={{
-                borderRadius: "50%",
-                border: 0,
-                width: "50px",
-                height: "50px",
-              }}
-              onClick={handleDeleteChat}
-            >
-              <img src={trash} width={30} height={30} />
-            </button>
-          </div>
+          
         </div>
         {data?.map((item) =>
           item.username === auth.currentUser.email ? (
             <div className="block-user">
               <div style={{ marginLeft:"auto" }}>
-                <span className="username">{item.username}</span>
+                <span className="username" style={{ marginLeft:"auto" }}>{item.username}</span>
                 {item.imgUrl !== "" ? (
                   <div className="usermsg" style={{ marginLeft:"auto" }}>
                     <img src={item.imgUrl} width={200} height={200} />
@@ -103,7 +91,7 @@ const Message = () => {
             </div>
           )
         )}
-       <div ref={dummy} style={{ height:"100px"}}></div>
+       <div ref={dummy} style={{ height:"150px"}}></div>
       </div>
       
     </div>

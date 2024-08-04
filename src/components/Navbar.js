@@ -4,7 +4,7 @@ import { auth } from "../firebase";
 const Navbar = () => {
   const handleSignOut = () => {
     auth.signOut();
-    window.location.href = "/login";
+    window.location.href = "/";
   };
   return (
     <div className="navbar">

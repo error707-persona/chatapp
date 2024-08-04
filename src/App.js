@@ -4,12 +4,13 @@ import Login from "./pages/Login";
 import ChatApp from "./pages/ChatApp";
 import AppState from "./context/AppState";
 function App() {
+  document.title="ChatApp";
   return (
     <AppState>
       <Router>
         <Routes>
           <Route path="/chatapp" element={<ChatApp />}></Route>
-          <Route path="/login" element={<Login />}></Route>
+          <Route path="/" element={<Login />}></Route>
         </Routes>
       </Router>{" "}
     </AppState>

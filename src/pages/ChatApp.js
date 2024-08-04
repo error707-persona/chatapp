@@ -15,22 +15,20 @@ const ChatApp = () => {
         <Navbar />
       </header>
       <div className="main-container">
-      <div className="userlist">
-
+        <div className="userlist">
           <UserList
             tab={tab}
             settab={settab}
             table={table}
             settable={settable}
           />
-      </div>
-        <div className="message-container">
-           <Message table={table} settable={settable} />
-           <InputBox/>
         </div>
-       
+        <div>
+          <Message table={table} settable={settable} />
+        </div>
+        
       </div>
-      {/* <InputBox /> */}
+      <InputBox />
     </div>
   );
 };

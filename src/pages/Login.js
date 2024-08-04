@@ -5,6 +5,7 @@ import googlelogo from "../assests/google.avif";
 import { doSignInWithEmailAndPassword } from "../auth";
 import { useAuth } from "../context/AuthContext";
 import { useState } from "react";
+import img from "../assests/chatapp.png"
 
 const Login = () => {
   let googleProvider = new GoogleAuthProvider();
@@ -44,7 +45,9 @@ const Login = () => {
 
   return (
     <div>
-      
+      <div>
+        <img src={img} alt="ChatAppLogo" height={50} width={50}/>
+      </div>
       <div className="flex h-screen flex-col items.center bg-blue-300">
         <div className="h-96 pl-2 rounded-md shadow-md w-80 mx-auto my-auto bg-white flex flex-col items-center justify-center gap-3">
           <input
